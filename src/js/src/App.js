@@ -1,7 +1,7 @@
 import './App.css';
 import { getAllStudents } from './client';
 import React, { Component } from 'react';
-
+import { Table } from 'antd';
 class App extends Component{
 
   constructor() {
@@ -30,17 +30,50 @@ class App extends Component{
   render() {
     const { students } = this.state
     if(students && students.length) {
-      return students.map((student, index) => {
-        return (
-          <div key ={index}>
-            <h2>{student.studentId}</h2>
-            <p>{student.firstName}</p>
-            <p>{student.lastName}</p>
-            <p>{student.gender}</p>
-            <p>{student.email}</p>
-          </div>
-        )
-      })
+      // return students.map((student, index) => {
+      //   return (
+      //     <div key ={index}>
+      //       <h2>{student.studentId}</h2>
+      //       <p>{student.firstName}</p>
+      //       <p>{student.lastName}</p>
+      //       <p>{student.gender}</p>
+      //       <p>{student.email}</p>
+      //     </div>
+      //   )
+      // })
+
+      //使用table
+      const dataSource = students
+      const columns = [
+        {
+          title: 'StudentId',
+          dataIndex: 'studentId',
+          key: 'studentId',
+        },
+        {
+          title: 'FirstName',
+          dataIndex: 'firstName',
+          key: 'firstName',
+        },
+        {
+          title: 'LastName',
+          dataIndex: 'lastName',
+          key: 'lastName',
+        },
+        {
+          title: 'Gender',
+          dataIndex: 'gender',
+          key: 'gender',
+        },
+        {
+          title: 'Email',
+          dataIndex: 'email',
+          key: 'email',
+        },
+      ];
+      return(
+        <Table dataSource={dataSource} columns={columns}/>
+      )
     }
     return (
       <h1>Hello SpringBoot And React</h1>
