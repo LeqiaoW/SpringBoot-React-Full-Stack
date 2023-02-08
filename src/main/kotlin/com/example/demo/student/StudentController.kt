@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController//注释表示这个类是一个controller
-@RequestMapping("student")//表示处理的请求的url
+@RequestMapping("students")//表示处理的请求的url
 class StudentController {
     @RequestMapping//表示处理请求的方法
     fun getAllStudent(): List<Student>{

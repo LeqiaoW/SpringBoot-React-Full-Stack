@@ -3,27 +3,45 @@ import { getAllStudents } from './client';
 import React, { Component } from 'react';
 import { 
   Table,
-  Avatar
+  Avatar,
+  Spin
  } from 'antd';
 import { default as Container } from './Container';
+import { LoadingOutlined } from '@ant-design/icons';
+
+
+const getIndicatorIcon = () => (
+  <LoadingOutlined
+    style={{
+      fontSize: 24,
+    }}
+    spin
+  />
+);
+
 class App extends Component{
 
   constructor() {
     super();
     //定义state
     this.state = {
-      students: []
+      students: [],
+      isFetching: false
     };
   }
 
   //定义获取学生的方法
   fetchStudents = () => {
+    this.setState({
+      isFetching: true
+    });
     getAllStudents()
       .then(res => res.json()
       .then(students => {
         console.log(students)
         this.setState({
-          students
+          students,
+          isFetching: false
         })
     }))
   };
@@ -32,7 +50,16 @@ class App extends Component{
   }
 
   render() {
-    const { students } = this.state
+    const { students, isFetching } = this.state
+
+    if(isFetching) {
+      return(
+        <Container>
+          <Spin indicator={getIndicatorIcon()} />
+        </Container>
+      )
+    }
+
     if(students && students.length) {
       //使用table
       const dataSource = students
