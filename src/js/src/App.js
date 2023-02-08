@@ -2,6 +2,7 @@ import './App.css';
 import { getAllStudents } from './client';
 import React, { Component } from 'react';
 import { Table } from 'antd';
+import { default as Container } from './Container';
 class App extends Component{
 
   constructor() {
@@ -30,18 +31,6 @@ class App extends Component{
   render() {
     const { students } = this.state
     if(students && students.length) {
-      // return students.map((student, index) => {
-      //   return (
-      //     <div key ={index}>
-      //       <h2>{student.studentId}</h2>
-      //       <p>{student.firstName}</p>
-      //       <p>{student.lastName}</p>
-      //       <p>{student.gender}</p>
-      //       <p>{student.email}</p>
-      //     </div>
-      //   )
-      // })
-
       //使用table
       const dataSource = students
       const columns = [
@@ -72,7 +61,13 @@ class App extends Component{
         },
       ];
       return(
-        <Table dataSource={dataSource} columns={columns}/>
+        <Container>
+          <Table 
+            dataSource={dataSource} 
+            columns={columns}
+            pagination={false}
+            rowKey='studentId'/>
+        </Container>
       )
     }
     return (
