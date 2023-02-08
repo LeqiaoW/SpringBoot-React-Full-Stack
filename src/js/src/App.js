@@ -1,7 +1,10 @@
 import './App.css';
 import { getAllStudents } from './client';
 import React, { Component } from 'react';
-import { Table } from 'antd';
+import { 
+  Table,
+  Avatar
+ } from 'antd';
 import { default as Container } from './Container';
 class App extends Component{
 
@@ -34,6 +37,17 @@ class App extends Component{
       //使用table
       const dataSource = students
       const columns = [
+        {
+          title: '',
+          key: 'avatar',
+          render: (text, student) => (
+            <Avatar size='large' style={{
+              backgroundColor: 'orange'
+            }}>
+              {`${student.firstName.charAt(0).toUpperCase()}${student.lastName.charAt(0).toUpperCase()}`}
+            </Avatar>
+          )
+        },
         {
           title: 'StudentId',
           dataIndex: 'studentId',
