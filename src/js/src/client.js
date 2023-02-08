@@ -5,4 +5,4 @@ import fetch from 'unfetch/src';
 // 要实现这个，需要到根目录的 package.json 中定义公共属性 proxy
 // const getAllStudents = () => fetch('localhost:8080/students');
 
-export const getAllStudents = () => fetch('/students');
+export const getAllStudents = () => fetch('api/students');
