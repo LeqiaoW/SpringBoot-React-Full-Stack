@@ -21,28 +21,27 @@ class StudentDataAccessService(
                 "gender " +
                 "FROM student"
 
-        return jdbcTemplate.query(sql, RowMapper<Student> { resultSet, i ->
-            //resultSet是查询到的结果集
-            // i 代表该数据的下标，是结果集的第几个数据
-            val studentIdStr = resultSet.getString("student_id")
-            val studentId = UUID.fromString(studentIdStr)
-            val firstName = resultSet.getString("first_name")
-            val lastName = resultSet.getString("last_name")
-            val email = resultSet.getString("email")
-            val gender = Gender.valueOf(resultSet.getString("gender").uppercase())
+        return jdbcTemplate.query(sql, mapStudentFromDb())
+    }
 
-            //将数据库数据转化为 Student类
-            Student(
-                    studentId = studentId,
-                    firstName = firstName,
-                    lastName = lastName,
-                    email = email,
-                    gender = gender
-            )
-        })
-//        return listOf(
-//                Student(UUID.randomUUID(), "James", "Bond", "JamesBond@gmail.com", Gender.MALE),
-//                Student(UUID.randomUUID(), "Elisa", "Tamara", "ElisaTamara@gmail.com", Gender.FEMALE)
-//        )
+    //将RowMapper方法抽离，提高可阅读性
+    private fun mapStudentFromDb() = RowMapper<Student> { resultSet, i ->
+        //resultSet是查询到的结果集
+        // i 代表该数据的下标，是结果集的第几个数据
+        val studentIdStr = resultSet.getString("student_id")
+        val studentId = UUID.fromString(studentIdStr)
+        val firstName = resultSet.getString("first_name")
+        val lastName = resultSet.getString("last_name")
+        val email = resultSet.getString("email")
+        val gender = Gender.valueOf(resultSet.getString("gender").uppercase())
+
+        //将数据库数据转化为 Student类
+        Student(
+                studentId = studentId,
+                firstName = firstName,
+                lastName = lastName,
+                email = email,
+                gender = gender
+        )
     }
 }
