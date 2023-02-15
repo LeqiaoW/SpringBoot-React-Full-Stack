@@ -8,6 +8,7 @@ import {
  } from 'antd';
 import { default as Container } from './Container';
 import { LoadingOutlined } from '@ant-design/icons';
+import Footer from './Footer';
 
 
 const getIndicatorIcon = () => (
@@ -108,6 +109,7 @@ class App extends Component{
             columns={columns}
             pagination={false}
             rowKey='studentId'/>
+            <Footer numberOfStudents = {students.length}></Footer>
         </Container>
       )
     }
